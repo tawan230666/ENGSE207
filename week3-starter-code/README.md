@@ -82,10 +82,10 @@ CREATE TABLE tasks (
 # 🖼️ ผลลัพธ์การทำงาน (Screenshots)
 
 ### ➕ เพิ่มงานใหม่
-![Create Task](/img/create_task.png)
+![Create Task](img/create_task.png)
 
 ### 🔄 เปลี่ยนสถานะงาน
-![Move Task](/img/move_task.png)
+![Move Task](img/move_task.png)
 
 ---
 
