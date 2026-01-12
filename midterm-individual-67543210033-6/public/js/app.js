@@ -36,7 +36,11 @@ async function loadBooks(status = null) {
         hideLoading();
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to load books: ' + error.message);
+        Swal.fire({
+            icon: 'error',
+            title: 'Connection Error',
+            text: 'Failed to load books: ' + error.message
+        });
         hideLoading();
     }
 }
@@ -119,7 +123,7 @@ function closeModal() {
     document.getElementById('book-modal').style.display = 'none';
 }
 
-// Form submit
+// Form submit (Add & Update) - แก้ตรงนี้ให้เป็น SweetAlert
 async function handleSubmit(event) {
     event.preventDefault();
     
@@ -133,16 +137,33 @@ async function handleSubmit(event) {
     try {
         if (id) {
             await api.updateBook(id, bookData);
-            alert('Book updated successfully!');
+            await Swal.fire({
+                icon: 'success',
+                title: 'Updated!',
+                text: 'Book updated successfully!',
+                timer: 1500,
+                showConfirmButton: false
+            });
         } else {
             await api.createBook(bookData);
-            alert('Book added successfully!');
+            await Swal.fire({
+                icon: 'success',
+                title: 'Saved!',
+                text: 'Book added successfully!',
+                timer: 1500,
+                showConfirmButton: false
+            });
         }
         
         closeModal();
         loadBooks(currentFilter === 'all' ? null : currentFilter);
     } catch (error) {
-        alert('Error: ' + error.message);
+        // แจ้งเตือน Error สวยๆ (เช่น ISBN ซ้ำ หรือ Format ผิด)
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.message
+        });
     }
 }
 
@@ -159,46 +180,97 @@ async function editBook(id) {
         
         document.getElementById('book-modal').style.display = 'flex';
     } catch (error) {
-        alert('Error: ' + error.message);
+        Swal.fire('Error', error.message, 'error');
     }
 }
 
-// Borrow book
+// Borrow book (SweetAlert Version)
 async function borrowBook(id) {
-    if (!confirm('Do you want to borrow this book?')) return;
+    const result = await Swal.fire({
+        title: 'Confirm Borrow?',
+        text: "Do you want to borrow this book?",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#28a745',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Yes, borrow it!'
+    });
+
+    if (!result.isConfirmed) return;
     
     try {
         await api.borrowBook(id);
-        alert('Book borrowed successfully!');
+        await Swal.fire({
+            icon: 'success',
+            title: 'Borrowed!',
+            text: 'Book borrowed successfully.',
+            timer: 1500,
+            showConfirmButton: false
+        });
         loadBooks(currentFilter === 'all' ? null : currentFilter);
     } catch (error) {
-        alert('Error: ' + error.message);
+        Swal.fire('Error', error.message, 'error');
     }
 }
 
-// Return book
+// Return book (SweetAlert Version)
 async function returnBook(id) {
-    if (!confirm('Do you want to return this book?')) return;
+    const result = await Swal.fire({
+        title: 'Return Book?',
+        text: "Are you returning this book?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#ffc107',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Yes, return it!',
+        color: '#000'
+    });
+
+    if (!result.isConfirmed) return;
     
     try {
         await api.returnBook(id);
-        alert('Book returned successfully!');
+        await Swal.fire({
+            icon: 'success',
+            title: 'Returned!',
+            text: 'Book returned successfully.',
+            timer: 1500,
+            showConfirmButton: false
+        });
         loadBooks(currentFilter === 'all' ? null : currentFilter);
     } catch (error) {
-        alert('Error: ' + error.message);
+        Swal.fire('Error', error.message, 'error');
     }
 }
 
-// Delete book
+// Delete book (SweetAlert Version)
 async function deleteBook(id) {
-    if (!confirm('Are you sure?')) return;
+    const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#ef4444',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Yes, delete it!'
+    });
+
+    if (!result.isConfirmed) return;
     
     try {
         await api.deleteBook(id);
-        alert('Book deleted successfully!');
+        await Swal.fire(
+            'Deleted!',
+            'The book has been deleted.',
+            'success'
+        );
         loadBooks(currentFilter === 'all' ? null : currentFilter);
     } catch (error) {
-        alert('Error: ' + error.message);
+        Swal.fire({
+            icon: 'error',
+            title: 'Cannot Delete',
+            text: error.message
+        });
     }
 }
 

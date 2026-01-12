@@ -205,6 +205,11 @@ header h1 {
     z-index: 1000;
 }
 
+.modal.show {
+    display: flex;   /* ⭐ สำคัญมาก */
+}
+
+
 .modal-content {
     background: white;
     padding: 30px;
