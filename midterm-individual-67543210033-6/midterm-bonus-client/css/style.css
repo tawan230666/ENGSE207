@@ -1,0 +1,19 @@
+body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; padding: 20px; }
+.container { max-width: 900px; margin: 0 auto; }
+header { text-align: center; margin-bottom: 30px; color: #333; }
+.card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
+.form-group { margin-bottom: 15px; }
+input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+.btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; color: white; transition: 0.2s; }
+.btn-primary { background: #4f46e5; width: 100%; }
+.btn-refresh { background: #10b981; margin-bottom: 15px; }
+.btn-borrow { background: #28a745; }
+.btn-return { background: #ffc107; color: black; }
+.btn-delete { background: #ef4444; margin-left: 5px; }
+
+.book-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #eee; }
+.book-info h3 { margin: 0 0 5px 0; color: #1f2937; }
+.book-info p { margin: 0; color: #6b7280; font-size: 0.9em; }
+.status-badge { padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; margin-left: 10px; }
+.status-available { background: #d1fae5; color: #065f46; }
+.status-borrowed { background: #fee2e2; color: #991b1b; }
