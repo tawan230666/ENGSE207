@@ -22,3 +22,5 @@ Thumbs.db
 *:Zone.Identifier
 *Zone.Identifier
 .idea/
+*.db
+*.tar.gz
